@@ -1,6 +1,11 @@
-// const fs = require('fs');
-// TODO: chalk is an ESM, so can't run in Node.js. Need to open the relative index.html file in the browser
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+
+
 import chalk from 'chalk';
+
 console.log(`chalk`, chalk);
 // TODO: The algorithm will be limited up to 8 letters, A-H, for now.
 const patternLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
@@ -106,15 +111,34 @@ const generateSchemeSet = ({ length }) => {
   return Array.from(finalSchemeSet);
 }
 
-const results = generateSchemeSet({ length: 3 });
+const results = generateSchemeSet({ length: 2 });
 
 console.log(`results`, results);
 console.log(`results.length`, results.length);
 
 // print in color
-results.forEach(result => {
-  console.log(result.split('').map(letter => chalk.hex(letterColorsMap[letter]).bold(letter)).join(''));
+const coloredResults = results.map(result => {
+  const coloredResult = result.split('').map(letter => {
+    // return chalk.hex(letterColorsMap[letter]).bold(letter)
+    return <span style={{color: letterColorsMap[letter]}}>{letter}</span>
+  })
+  // .join('');
+
+  console.log(`coloredResult`, coloredResult);
+
+  return coloredResult;
 });
 
 
-// fs.writeFileSync('./tmp', JSON.stringify(results));
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <div>
+    {
+      coloredResults.map(coloredResult => (
+        <div>{coloredResult}</div>
+      ))
+    }
+  </div>
+);
+

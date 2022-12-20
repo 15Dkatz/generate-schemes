@@ -1,1 +1,0 @@
-Coloring done in `.../Code/User/settings.json` with "highlight.regexes": {
